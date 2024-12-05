@@ -82,17 +82,9 @@ void loop() {
     mass = 0.0;
   }
   else{
-    while(calculations > 0){
-      if(calculations > 0.50){
-        calculations -= 0.5;
-        mass += 39;
-      }
-      else{
-        calculations -= 0.013;
-        mass += 4.5;
-      }
-    }
+    mass = 379.22(distance_cm) - 3281.81;
   }
+  =Sheet1!$A$2:$A$8
   // print the value to Serial Monitor
   lcd.print("Weight: ");
   lcd.print(mass);
