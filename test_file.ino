@@ -48,7 +48,9 @@
 const int rs = 12, en = 11, d4 = 5, d5 = 4, d6 = 3, d7 = 2;
 LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 const int trig = 6, echo = 7;
-float duration_us, distance_cm;
+float duration_us, distance_cm, mass, calculations;
+
+
 
 void setup() {
   // set up the LCD's number of columns and rows:
@@ -72,13 +74,29 @@ void loop() {
 
   // measure duration of pulse from ECHO pin
   duration_us = pulseIn(echo, HIGH);
+  mass = 0.0;
   // calculate the distance
   distance_cm = 0.017 * duration_us;
-
+  calculations = distance_cm - 8.13;
+  if(calculations < 8.13 - 8.02 && calculations > 0.0){
+    mass = 0.0;
+  }
+  else{
+    while(calculations > 0){
+      if(calculations > 0.50){
+        calculations -= 0.5;
+        mass += 39;
+      }
+      else{
+        calculations -= 0.013;
+        mass += 4.5;
+      }
+    }
+  }
   // print the value to Serial Monitor
-  lcd.print("distance: ");
-  lcd.print(distance_cm);
-  lcd.println(" cm");
+  lcd.print("Weight: ");
+  lcd.print(mass);
+  lcd.println(" g  ");
 
-  delay(500);
+  delay(1500);
 }
